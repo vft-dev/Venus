@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="shortcut icon" type="image/png" href="css/pics/favicon.png">
+  <title>VFT</title>
+</head>
+
+
+
+
+
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+  
+  
+  
+  
+  
+  header {
+    height: 100vh;
+  }
+  
+  .container {
+    /* hide fixed overflow contents */
+    clip: rect(0, auto, auto, 0);
+  
+    /* does not work if overflow = visible */
+    overflow: hidden;
+  
+    /* only works with absolute positioning */
+    position: absolute;
+  
+    /* Make sure containers are full-width and height */
+    height: 100vh;
+    left: 0;
+    width: 100%;
+    
+    
+    /* safari hck */
+    -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%,#ffffff 100%);
+  }
+  
+  .container_solid {
+    background: white;
+    
+    /* position this container at the top of its parent element */
+    top: 0;
+  }
+  
+  .title_wrapper {
+    position: fixed;
+    display: block;  
+    margin: auto;
+    width: 100%;
+    /* center the text wrapper vertically */
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+  }
+  
+  .title_wrapper h1 {
+    text-align: center;
+    font-size: 6.9rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+  
+  .container_solid .title_wrapper h1 {
+    background-color: black;
+    
+    /* clip the text is possible */
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    
+    /* fallback text color */
+    color: white;
+  }
+  
+  .container_image {
+  background-color: black;
+    
+    /* position the second container below the first container */
+    top: 100vh;
+  }
+  
+  .container_image .title_wrapper h1 {
+    color: white;
+  }
+  
+  body {
+    background-color: black;
+    color: white;
+    
+  }
+  
+  section {
+    text-align: center;
+    font-size: 3rem;
+  }
+  
+  
+  
+  
+
+
+  .container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0px 0;
+  position: absolute;
+}
+
+.container .box
+{
+  position: absolute;
+  width: 320px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 15px;
+  transition: 0.5s;
+  background-color: black;
+}
+
+.container .box::before
+{
+  content:' ';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 50%;
+  height: 100%;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+}
+
+.container .box::after
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 50;
+  width: 50%;
+  height: 100%;
+  background: #fff;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+  filter: blur(30px);
+}
+
+.container .box:hover:before,
+.container .box:hover:after
+{
+  transform: skewX(0deg);
+  left: 20px;
+  width: calc(100% - 90px);
+  
+}
+
+.container .box:nth-child(1):before,
+.container .box:nth-child(1):after
+{
+  background: linear-gradient(315deg, white, black)
+}
+
+.container .box:nth-child(2):before,
+.container .box:nth-child(2):after
+{
+  background: linear-gradient(315deg, white, black)
+}
+
+.container .box:nth-child(3):before,
+.container .box:nth-child(3):after
+{
+  background: linear-gradient(315deg, white, black)
+}
+
+.container .box span
+{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+
+}
+
+.container .box span::before
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.1s;  
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+.container .box:hover span::before
+{
+  top: -50px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+.container .box span::after
+{
+  content:'';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  animation-delay: -1s;
+}
+
+.container .box:hover span:after
+{
+  bottom: -50px;
+  right: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+@keyframes animate
+{
+  0%, 100%
+  {
+    transform: translateY(10px);
+  }
+  
+  50%
+  {
+    transform: translate(-10px);
+  }
+}
+
+.container .box .content
+{
+  position: relative;
+  left: 0;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  transform: 0.5s;
+  color: #fff;
+}
+
+.container .box:hover .content
+{
+  left: -25px;
+  padding: 60px 40px;
+}
+
+.container .box .content h2
+{
+  font-size: 1.3em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.container .box .content p
+{
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.4em;
+}
+
+.container .box .content a
+{
+  display: inline-block;
+  font-size: 1.1em;
+  color: #111;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 5px;
+  margin-bottom: 1.69em;
+
+}
+
+.container .box .content a:hover
+{
+  background: white;
+  border: 1px solid black(255, 0, 88, 0.4); 
+  box-shadow: 0 1px 15px rgba(1, 1, 1, 0.33);
+}
+
+
+
+button{
+  background-color: transparent;
+}
+
+a {
+  color: white;
+}
+
+a:link {
+      text-decoration: none;
+}
+
+a:visited {
+      text-decoration: none;
+}
+
+a:hover {
+      text-decoration: none;
+}
+
+a:active {
+      text-decoration: none;
+}
+
+
+
+
+[data-msg] {
+  position: relative;
+  text-decoration: none;
+  padding: 3em ;
+  border: none;
+  transform: translate(0%, 700%);
+  width: 100%;
+}
+
+
+[data-msg]:focus{
+  background-color: transparent;
+  border: none;
+}
+
+[data-msg]:before{
+  content: attr(data-msg);
+  position: relative;
+  width: 100%;
+  min-width: 3.33em;
+  padding-top: 3em;
+  font-size: small;
+  color: transparent;
+  background-color: transparent;
+  text-decoration: none;
+
+  
+}
+
+
+[data-msg]:focus::before, [data-msg]:hover::before {
+  content: attr(data-msg);
+  position: relative;
+  height: 3rem;
+  width: 100%;
+  min-width: 3.33em;
+  padding-top: 333em;
+  color: whitesmoke;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+[data-msg]:focus::after, [data-msg]:hover::after {
+  content: '';
+  position: absolute;
+  top: -33px;
+  left: -15px;
+  transform: translate(-50%);
+  
+}
+
+
+.fa-brands{
+  text-decoration: none; color: white;
+}
+
+.fa-brands:visited {
+  color: white;
+}
+
+.fa-brands:hover{
+  text-decoration: none; color: white;
+}
+
+.fa-brands:focus{ text-decoration: none; color: white;}
+
+.fa-brands:hover{ text-decoration: none; color: none;}
+
+
+
+.links{
+  margin-top: 9.69em;
+  position: absolute;
+  left: 0;
+  right: 0;
+
+
+
+}
+
+
+
+    </style>
+  </head>
+  <header>
+  
+      <!-- First container -->
+      <div class="container container_solid">
+        <div class="title_wrapper">
+          <h1>Venus</h1>
+        </div>
+      </div>
+    
+      <!-- Second container -->
+      <div class="container container_image" aria-hidden="true"> 
+        <div class="title_wrapper">
+          <h1>Venus</h1>
+        </div>
+      </div>
+    
+    </header>
+    
+  
+  
+  <body>
+    <section>
+      
+
+
+
+</head>
+<header>
+
+   
+  
+  </header>
+  
+
+
+<body>
+
+</body>
+
+  <section>
+
+
+  </section>
+
+<h2>We can easily forgive<br> a child who is afraid of the dark,<br> The real tragedy of life is when<br> men are afraid of the light.<br>~Plato</h2>
+
+    <div class="container">
+      <a href="">
+      <div class="box">
+        <span></span>
+        <div class="content">
+          <h2>CyberSecurity for<br>Everyone.</h2>
+          
+
+
+        </div>
+        <div class="links">
+          <a href="https://twitter.com/vft369"><i class="fa-brands fa-twitter"></i> </a>
+          <a href="https://www.instagram.com/venus_fly_trap.official/"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+      </div>
+
+
+    </div>
+    
+
+    <a href="#">
+      <button data-msg="Tech, Web3, Alpha and Hacking coming soon"></button>
+    </a> 
+
+</body>
+</html>
